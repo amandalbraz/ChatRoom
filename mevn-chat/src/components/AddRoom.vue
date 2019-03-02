@@ -1,29 +1,3 @@
-export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'RoomList',
-      component: RoomList
-    },
-    {
-      path: '/add-room',
-      name: 'AddRoom',
-      component: AddRoom
-    },
-    {
-      path: '/join-room/:id',
-      name: 'JoinRoom',
-      component: JoinRoom
-    },
-    {
-      path: '/chat-room/:id/:nickname',
-      name: 'ChatRoom',
-      component: ChatRoom
-    }
-  ]
-})
-
-
 <template>
   <b-row>
     <b-col align-self="start">&nbsp;</b-col>

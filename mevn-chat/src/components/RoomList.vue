@@ -1,29 +1,3 @@
-export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'RoomList',
-      component: RoomList
-    },
-    {
-      path: '/add-room',
-      name: 'AddRoom',
-      component: AddRoom
-    },
-    {
-      path: '/join-room/:id',
-      name: 'JoinRoom',
-      component: JoinRoom
-    },
-    {
-      path: '/chat-room/:id/:nickname',
-      name: 'ChatRoom',
-      component: ChatRoom
-    }
-  ]
-})
-
-
 <template>
   <b-row>
     <b-col cols="12">
@@ -50,7 +24,7 @@ export default new Router({
 import axios from 'axios'
 
 export default {
-  name: 'BookList',
+  name: 'RoomList',
   data () {
     return {
       fields: {
@@ -73,6 +47,7 @@ export default {
   },
   methods: {
     join (id) {
+      console.log(id)  
       this.$router.push({
         name: 'JoinRoom',
         params: { id: id }
