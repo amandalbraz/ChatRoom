@@ -17,4 +17,4 @@ Create routes chat.js and room.js<br>
 npm start -> `http://localhost:3000/api/room` or `http://localhost:3000/api/chat` to see on browser<br>
 npm install --save mongoose bluebird<br>
 Create mongoose promise to require bluebird (replace uri to variable with your mLab or MongoDB uri connection with user and password)<br>
-node ./bin/www on main cmd window to<br>
+node ./bin/www or npm start to run project<br>
