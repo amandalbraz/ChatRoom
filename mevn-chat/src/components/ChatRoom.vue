@@ -5,7 +5,8 @@
         Chat Room
       </h2>
       <b-list-group class="panel-body" v-chat-scroll>
-        <b-list-group-item v-for="(item, index) in chats" class="chat">
+        <b-list-group-item v-for="(item, index) in chats" class="chat" v-bind:key="item">
+          {{index}}.{{value}}
           <div class="left clearfix" v-if="item.nickname === nickname">
             <b-img left src="http://placehold.it/50/55C1E7/fff&text=ME" rounded="circle" width="75" height="75" alt="img" class="m-1" />
             <div class="chat-body clearfix">
@@ -29,7 +30,7 @@
         </b-list-group-item>
       </b-list-group>
       <ul v-if="errors && errors.length">
-        <li v-for="error of errors">
+        <li v-for="error of errors" v-bind:key="error">
           {{error.message}}
         </li>
       </ul>
@@ -66,36 +67,36 @@ export default {
   },
   created () {
     axios.get(`http://localhost:3000/api/chat/` + this.$route.params.id)
-    .then(response => {
-      this.chats = response.data
-    })
-    .catch(e => {
-      this.errors.push(e)
-    })
+      .then(response => {
+        this.chats = response.data
+      })
+      .catch(e => {
+        this.errors.push(e)
+      })
 
     this.socket.on('new-message', function (data) {
-      if(data.message.room === this.$route.params.id) {
+      if (data.message.room === this.$route.params.id) {
         this.chats.push(data.message)
       }
     }.bind(this))
   },
   methods: {
-   logout () {
-    this.socket.emit('save-message', { room: this.chat.room, nickname: this.chat.nickname, message: this.chat.nickname + ' left this room', created_date: new Date() });
-    this.$router.push({
-      name: 'RoomList'
+    logout () {
+      this.socket.emit('save-message', { room: this.chat.room, nickname: this.chat.nickname, message: this.chat.nickname + ' left this room', created_date: new Date() })
+        this.$router.push({
+          name: 'RoomList'
     })
     },
     onSubmit (evt) {
-      evt.preventDefault()
-      this.chat.room = this.$route.params.id
-      this.chat.nickname = this.$route.params.nickname
+        evt.preventDefault()
+          this.chat.room = this.$route.params.id
+          this.chat.nickname = this.$route.params.nickname
       axios.post(`http://localhost:3000/api/chat`, this.chat)
       .then(response => {
-        this.socket.emit('save-message', response.data)
-        this.chat.message = ''
+            this.socket.emit('save-message', response.data)
+            this.chat.message = ''
       })
-      .catch(e => {
+        .catch(e => {
         this.errors.push(e)
       })
     }

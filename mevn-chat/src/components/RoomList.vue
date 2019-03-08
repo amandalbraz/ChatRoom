@@ -11,7 +11,7 @@
         </template>
       </b-table>
       <ul v-if="errors && errors.length">
-        <li v-for="error of errors">
+        <li v-for="error of errors" v-bind:key="error">
           {{error.message}}
         </li>
       </ul>
@@ -38,16 +38,16 @@ export default {
   },
   created () {
     axios.get(`http://localhost:3000/api/room`)
-    .then(response => {
-      this.rooms = response.data
-    })
-    .catch(e => {
-      this.errors.push(e)
-    })
+      .then(response => {
+        this.rooms = response.data
+      })
+      .catch(e => {
+        this.errors.push(e)
+      })
   },
   methods: {
     join (id) {
-      console.log(id)  
+      console.log(id)
       this.$router.push({
         name: 'JoinRoom',
         params: { id: id }
